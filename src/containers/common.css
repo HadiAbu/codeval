@@ -1,0 +1,27 @@
+.nav{
+    background-color: aqua;
+    padding: 2em 2em;;
+}
+.brand{
+    text-decoration: none;
+    color: black;
+    font-size: large;
+    font-weight: 500;
+}
+.row{
+    display: flex;
+}
+.col{
+    padding: 0 1em;
+}
+.column-align{
+    display: flex;
+    flex-direction: column;
+}
+.flex-container{
+    padding-top: 15px;
+    display: flex;
+}
+.store-container{
+    width: 50%;
+}
