@@ -53,22 +53,23 @@ const Store = () =>{
     }
 
     return <Observer>{ (() => (<div className={'flex-container'}>
-        <Container className="store-container">
-            <div className={'flex-container'}>
-                <Button onClick={ () => addToList()}>Add</Button>
-                
-                    <input {...textInput} placeholder="Search products"/>
-                
-                <div>Sort by: 
-                    <select name="products" id="select-products" onChange={handleSelectChange}>
-                        <option value="id">ID</option>
-                        <option value="name">Name</option>
-                        <option value="desc">Description</option>   
-                        <option value="price">Price</option>
-                        <option value="createDate">Created Date</option>
-                    </select>
-                </div>
+        <div>
+         <div className={'flex-container tools-row'}>
+            <Button onClick={ () => addToList()}>Add</Button>
+            
+            <input {...textInput} placeholder="Search products"/>
+            
+            <div>Sort by: 
+                <select name="products" id="select-products" onChange={handleSelectChange}>
+                    <option value="id">ID</option>
+                    <option value="name">Name</option>
+                    <option value="desc">Description</option>   
+                    <option value="price">Price</option>
+                    <option value="createDate">Created Date</option>
+                </select>
             </div>
+        </div>
+        <Container className="store-container">
             <div className={'column-align'}>
                 {Utils.findBy(prods,textInput.value).map((pro)=>{
                     return <Product key={pro.id} product={pro} showDetails={showDetails} 
@@ -76,6 +77,7 @@ const Store = () =>{
                 })}
             </div>
         </Container>
+        </div>
         {show && <ProductToShow product={productToShow} onSave={onSaveProduct}/>}
         
     </div>))}</Observer>;

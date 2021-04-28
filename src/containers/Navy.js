@@ -5,7 +5,7 @@ import './common.css';
 const Navy = () =>{
     return(<header>
         <Navbar bg="dark" expand="lg" className="nav">
-          <Navbar.Brand href="#home" className="brand">My Store</Navbar.Brand>
+          <Navbar.Brand href="#home" className="brand"> <h1>My Store</h1></Navbar.Brand>
         </Navbar>
     </header>);
 }
