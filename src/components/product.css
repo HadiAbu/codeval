@@ -1,12 +1,11 @@
 .product-container{
-    border: solid 1px black;
+    border: solid 1px orange;
     margin: 1em 1em;;
     display: grid;
     grid-template-columns: 10% 1fr auto;
     grid-template-rows: 1fr;
+    border-radius: 0.5em;
     grid-gap: 1em;
-    /* width: 50%; */
-      
 }
 .name-desc{
     display: flex;
@@ -21,7 +20,8 @@
 .to-show-container{
     display: flex;
     flex-direction: column;
-    border: solid 1px black;
+    border: solid 1px orange;
+    border-radius: 0.5em;
     width: 40%;
     height: 29em;
     margin: 2em;
@@ -36,4 +36,8 @@
     display: flex;
     flex-direction: row;
     margin-left: auto;
+}
+input{
+    border-color: orange;
+    border-radius: 0.5em;
 }

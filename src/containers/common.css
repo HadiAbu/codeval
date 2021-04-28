@@ -1,9 +1,17 @@
 body{
     margin: 1em 2em 0 2em;
 }
+
 .nav{
     background-color: aqua;
-    padding: 1em 2em;;
+    padding: 1em 2em;   
+    border-radius: 0.5em;
+}
+button{
+    border-radius: 0.5em;
+    background-color: honeydew;
+    color: indigo;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 .brand{
     text-decoration: none;
@@ -32,5 +40,19 @@ body{
     width: 50em;
     height: 32em;
     overflow: scroll;
-    border: solid 1px grey;
+    border: solid 3px aqua;
+    border-radius: 0.5em;
 }
+.store-container::-webkit-scrollbar {
+    width: 12px;               /* width of the entire scrollbar */
+  }
+  
+  .store-container::-webkit-scrollbar-track {
+    background: whitesmoke;        /* color of the tracking area */
+  }
+  
+  .store-container::-webkit-scrollbar-thumb {
+    background-color: greenyellow;    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+    border: 3px solid orange;  /* creates padding around scroll thumb */
+  }
