@@ -3,53 +3,18 @@ import { Container,Button } from 'react-bootstrap';
 import Product from '../components/Product';
 import ProductToShow from '../components/ProductToShow';
 import Utils from '../utils/Utils';
+import {useProductsStore} from '../contexts/productsContext';
 import './common.css';
 
-const products = [
-    {
-        id: 1,
-        name: 'product 1',
-        desc: 'product 1 desc',
-        createDate: '22/4/21',
-        price: 1
-    },
-    {   id: 2,
-        name: 'product 2',
-        desc: 'product 2 desc',
-        createDate: '11/4/21',
-        price: 2
-    },
-    {   id: 3,
-        name: 'product 3',
-        desc: 'product 3 desc',
-        createDate: '12/4/21',
-        price: 3
-    },
-    {   id: 4,
-        name: 'product 4',
-        desc: 'product 4 desc',
-        createDate: '17/4/21',
-        price: 4
-    },
-    {   id: 5,
-        name: 'product 5',
-        desc: 'product 5 desc',
-        createDate: '11/5/21',
-        price: 5
-    },
-    {   id: 6,
-        name: 'product 6',
-        desc: 'product 6 desc',
-        createDate: '17/4/21',
-        price: 6
-    }
-];
+import {Observer} from 'mobx-react';
+
 const Store = () =>{
-    const [prods, setProducts] = useState([...products]);
+    const productsStore = useProductsStore();
+    const [prods, setProducts] = useState(productsStore.products);
     const[show, showDetails] = useState(false);
     const[productToShow, setProductToShow]=useState();
     const textInput = useFormInput(''); 
-
+    
     function useFormInput(initialValue){
         const[value, setValue] = useState(initialValue);
 
@@ -62,28 +27,24 @@ const Store = () =>{
             onChange: handleChangeEvent
         }
     }
+    
+    const deleteFromList = (product) =>{
 
-    function deleteFromList(product){
-        let i = prods.findIndex((x)=> x['id']===product.id);
-        prods.splice(i, 1);
-        setProducts([...prods]);
+        productsStore.removeProduct(product.id);
+
         // remove show details view if we have deleted this product
-        if(product.id === productToShow.id){
+        if(product.id === 'undefined'){
             showDetails(false);
         }
     }
-    function addToList(){
-        const obj = {id: prods.length+1, name: 'example', desc: 'example desc'};
-        prods.push(obj);
+    const addToList = () => {
+        const obj = { name: 'example', desc: 'example desc', price: 12};
+        productsStore.addProduct(obj);
         setProductToShow(obj)
-        console.log('added example');
-        setProducts([...prods]);
     }
     function onSaveProduct(newProduct){
-        let i = prods.findIndex((x)=> x['id']===newProduct.id);
-        prods[i] = newProduct;
+        productsStore.updateProduct(newProduct);
         setProductToShow(newProduct)
-        setProducts([...prods]);   
     }
     function handleSelectChange(event){
         const key = event.target.value;
@@ -91,7 +52,7 @@ const Store = () =>{
         setProducts([...tempArr]);
     }
 
-    return(<div className={'flex-container'}>
+    return <Observer>{ (() => (<div className={'flex-container'}>
         <Container className="store-container">
             <div className={'flex-container'}>
                 <Button onClick={ () => addToList()}>Add</Button>
@@ -109,7 +70,7 @@ const Store = () =>{
                 </div>
             </div>
             <div className={'column-align'}>
-                {Utils.findBy([...prods],textInput.value).map((pro)=>{
+                {Utils.findBy(prods,textInput.value).map((pro)=>{
                     return <Product key={pro.id} product={pro} showDetails={showDetails} 
                     setProductToShow={setProductToShow} deleteFromList={deleteFromList}/>
                 })}
@@ -117,7 +78,7 @@ const Store = () =>{
         </Container>
         {show && <ProductToShow product={productToShow} onSave={onSaveProduct}/>}
         
-    </div>);
+    </div>))}</Observer>;
 }
 
 export default Store;

@@ -1,34 +1,29 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Button } from 'react-bootstrap';
 
 import "./product.css";
 
 
 const ProductToShow = ({product, onSave}) =>{
-    const nameInput = useFormInput(product.name); 
-    const descInput = useFormInput(product.desc); 
-    const priceInput = useFormInput(product.price); 
+
+    const[name, setName] = useState(product.name);
+    const[desc, setDesc] = useState(product.desc);
+    const[price, setPrice] = useState(product.price);
 
     const newProduct = {
         id: product.id,
-        name: nameInput.value,
-        desc: descInput.value,
+        name: name,
+        desc: desc,
         createDate: product.createDate,
-        price: priceInput.value
+        price: price
     };
 
-    function useFormInput(initialValue){
-        const[value, setValue] = useState(initialValue);
-
-        function handleChangeEvent(e){
-            setValue(e.target.value);
-        }
-
-        return{
-            value: value,
-            onChange: handleChangeEvent
-        }
-    }
+    useEffect(() => {
+        setName(product.name);
+        setDesc(product.desc);
+        setPrice(product.price);
+      }, [product]);
+    
     
     return (
         <div className="to-show-container">
@@ -37,11 +32,11 @@ const ProductToShow = ({product, onSave}) =>{
            
             <h1>{product.name}</h1>
             <label>Product Name: </label>
-            <input {...nameInput}/>
+            <input value={name} onChange={(e) => setName(e.target.value)}/>
             <label>Product Description: </label>
-            <input {...descInput}/>
+            <input value={desc} onChange={(e) => setDesc(e.target.value)}/>
             <label>Product Price: </label>
-            <input {...priceInput}/>
+            <input value={price} onChange={(e) => setPrice(e.target.value)}/>
             <div className={'to-the-right'}>
                 <Button onClick={()=>onSave(newProduct)}>Save</Button>
             </div>
